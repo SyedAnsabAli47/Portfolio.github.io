@@ -237,193 +237,114 @@
         }
 
         /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 80px;
-        }
+        .hero-fullscreen {
+    height: 100vh; /* Poori screen ki height */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #0f0f16; /* Dark theme background */
+    text-align: center;
+    padding: 0 20px;
+}
 
-        /* Animated Tech Grid */
-        .tech-grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0.15;
-            z-index: 0;
-        }
+/* Floating Animation Blobs */
+.blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(108, 99, 255, 0.2) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: 1;
+    filter: blur(80px);
+    animation: move 20s infinite alternate;
+}
 
-        .tech-line {
-            position: absolute;
-            background: var(--primary);
-            animation: techMove 20s linear infinite;
-        }
+.blob-1 { top: -10%; left: -10%; background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(0,0,0,0) 70%); }
+.blob-2 { bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0,0,0,0) 70%); }
 
-        .tech-line.horizontal {
-            width: 100%;
-            height: 1px;
-        }
+@keyframes move {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(100px, 50px) scale(1.2); }
+}
 
-        .tech-line.vertical {
-            width: 1px;
-            height: 100%;
-        }
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+}
 
-        @keyframes techMove {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.3; }
-        }
+.hero-greeting {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
 
-        /* Floating Elements */
-        .floating-element {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--gradient-1);
-            opacity: 0.1;
-            animation: float 15s ease-in-out infinite;
-            z-index: 0;
-        }
+.hero-name {
+    font-size: 5rem; /* Large landscape font */
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #fff;
+}
 
-        .floating-element:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
+.highlight {
+    background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        .floating-element:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: 15%;
-            background: var(--gradient-2);
-            animation-delay: 2s;
-        }
+.hero-subtitle {
+    font-size: 1.8rem;
+    color: #cbd5e1;
+    margin-bottom: 25px;
+}
 
-        .floating-element:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            bottom: 20%;
-            left: 20%;
-            background: var(--gradient-3);
-            animation-delay: 4s;
-        }
+.hero-description {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
 
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            33% {
-                transform: translate(30px, -50px) rotate(120deg);
-            }
-            66% {
-                transform: translate(-20px, 30px) rotate(240deg);
-            }
-        }
+/* Buttons Styling */
+.hero-btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 1000px;
-        }
+.btn {
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-card);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-            animation: slideDown 1s ease;
-        }
+.btn-primary {
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    color: white;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
 
-        .hero-badge .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #00FF88;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
+.btn-secondary {
+    border: 1px solid #334155;
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
+.btn:hover {
+    transform: translateY(-5px);
+}
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6.5rem);
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            letter-spacing: -3px;
-            line-height: 1.1;
-            animation: fadeInUp 1s ease 0.2s backwards;
-        }
-
-        .hero h1 .gradient-text {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-            animation: gradientShift 3s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(30deg); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero .tagline {
-            font-size: clamp(1.3rem, 3vw, 2rem);
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-weight: 400;
-            animation: fadeInUp 1s ease 0.4s backwards;
-        }
-
-        .hero .subtitle {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-            animation: fadeInUp 1s ease 0.6s backwards;
-        }
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero-name { font-size: 3rem; }
+    .hero-btns { flex-direction: column; }
+}
 
         .cta-buttons {
             display: flex;
@@ -1356,39 +1277,25 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <!-- Tech Grid Animation -->
-        <div class="tech-grid">
-            <div class="tech-line horizontal" style="top: 20%;"></div>
-            <div class="tech-line horizontal" style="top: 50%;"></div>
-            <div class="tech-line horizontal" style="top: 80%;"></div>
-            <div class="tech-line vertical" style="left: 20%;"></div>
-            <div class="tech-line vertical" style="left: 50%;"></div>
-            <div class="tech-line vertical" style="left: 80%;"></div>
+       <section id="home" class="hero-fullscreen">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <div class="hero-content">
+        <p class="hero-greeting">Hi, I'm</p>
+        <h1 class="hero-name">Syed <span class="highlight">Ansab Ali</span></h1>
+        <h2 class="hero-subtitle">Graphic Designer & Website Developer</h2>
+        <p class="hero-description">
+            Transforming creative visions into stunning digital realities. 
+            Specialized in crafting exceptional user experiences through innovative design and clean code.
+        </p>
+        
+        <div class="hero-btns">
+            <a href="#portfolio" class="btn btn-primary">View My Work &rarr;</a>
+            <a href="#contact" class="btn btn-secondary">Let's Talk <i class="far fa-comment-dots"></i></a>
         </div>
-
-        <!-- Floating Elements -->
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="pulse-dot"></span>
-            </div>
-            <h1>
-                Hi, I'm <span class="gradient-text">Syed Ansab Ali</span>
-            </h1>
-            <p class="tagline">Graphic Designer & Website Developer</p>
-            <p class="subtitle">Transforming creative visions into stunning digital realities. Specialized in crafting exceptional user experiences through innovative design and clean code.</p>
-            <div class="cta-buttons">
-                <a href="#portfolio" class="btn btn-primary">
-                    <span>View My Work</span>
-                    <span>→</span>
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <span>Let's Talk</span>
-                    <span>💬</span>
-                </a>
-            </div>
+    </div>
+</section>
 
             <!-- Tech Stack Marquee -->
             <div class="tech-marquee">
@@ -1913,7 +1820,6 @@
             }
         }
     </script>
-</body>
-</html>                
-</body>
+
+      </body>
 </html>
