@@ -237,44 +237,170 @@ section {
     z-index: 1;
 }
 /* ===================================
-   Hero Section - CENTERED VERSION
+   Hero Section - PERFECTLY CENTERED
    =================================== */
 .hero {
     min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 100px 20px 80px; /* Top padding for navbar */
+    padding: 0;
+    margin: 0;
 }
 
-/* Hero Content Container - CENTERED */
-.hero-content {
-    position: relative;
-    z-index: 10;
-    max-width: 900px;
+/* Hero Wrapper - Centers Everything */
+.hero-wrapper {
     width: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-    text-align: center;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 10;
+    padding: 0 2rem;
+}
+
+/* Hero Content - Centered Container */
+.hero-content {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* Animated Tech Grid */
+.tech-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.tech-line {
+    position: absolute;
+    background: var(--primary);
+    animation: techMove 20s linear infinite;
+}
+
+.tech-line.horizontal {
+    width: 100%;
+    height: 1px;
+}
+
+.tech-line.vertical {
+    width: 1px;
+    height: 100%;
+}
+
+@keyframes techMove {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.3; }
+}
+
+/* Floating Elements */
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gradient-1);
+    opacity: 0.1;
+    animation: float 15s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.floating-element:nth-child(2) {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-element:nth-child(3) {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 15%;
+    background: var(--gradient-2);
+    animation-delay: 2s;
+}
+
+.floating-element:nth-child(4) {
+    width: 150px;
+    height: 150px;
+    bottom: 20%;
+    left: 20%;
+    background: var(--gradient-3);
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        transform: translate(30px, -50px) rotate(120deg);
+    }
+    66% {
+        transform: translate(-20px, 30px) rotate(240deg);
+    }
+}
+
+/* Animated Blobs */
+.blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(108, 99, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(80px);
+    animation: blobMove 20s infinite alternate;
+    pointer-events: none;
+}
+
+.blob-1 {
+    top: -10%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.blob-2 {
+    bottom: -10%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    animation-delay: 2s;
+}
+
+@keyframes blobMove {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+    to {
+        transform: translate(100px, 50px) scale(1.2);
+    }
 }
 
 /* Hero Badge */
 .hero-badge {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     background: var(--bg-card);
     padding: 0.6rem 1.5rem;
     border-radius: 50px;
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin: 0 auto 2rem;
     border: 1px solid var(--border-color);
     animation: slideDown 1s ease;
 }
@@ -311,7 +437,7 @@ section {
     }
 }
 
-/* Hero Text - All Centered */
+/* Hero Text */
 .hero-greeting {
     font-size: 1.5rem;
     color: var(--text-primary);
@@ -351,11 +477,9 @@ section {
 .hero-description {
     font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
     line-height: 1.6;
     max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
     animation: fadeInUp 1s ease 0.8s backwards;
 }
 
@@ -370,7 +494,7 @@ section {
     }
 }
 
-/* Buttons - Centered */
+/* Buttons */
 .hero-btns {
     display: flex;
     gap: 20px;
@@ -380,14 +504,15 @@ section {
     animation: fadeInUp 1s ease 1s backwards;
 }
 
-/* Tech Stack Marquee - Bottom Centered */
+/* Tech Stack Marquee */
 .tech-marquee {
     position: absolute;
     bottom: 5rem;
     left: 0;
     width: 100%;
     overflow: hidden;
-    z-index: 1;
+    z-index: 5;
+    pointer-events: none;
 }
 
 .marquee-content {
@@ -409,6 +534,7 @@ section {
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s ease;
+    pointer-events: auto;
 }
 
 .tech-item:hover {
@@ -426,14 +552,10 @@ section {
     }
 }
 
-/* Responsive Hero */
+/* Responsive */
 @media (max-width: 768px) {
-    .hero {
-        padding: 120px 20px 60px;
-    }
-    
-    .hero-content {
-        padding: 0 1rem;
+    .hero-wrapper {
+        padding: 0 1.5rem;
     }
     
     .hero-name {
@@ -466,6 +588,21 @@ section {
         font-size: 0.8rem;
         padding: 0.5rem 1.2rem;
     }
+    
+    .floating-element:nth-child(2) {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .floating-element:nth-child(3) {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .floating-element:nth-child(4) {
+        width: 100px;
+        height: 100px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -481,141 +618,8 @@ section {
         font-size: 0.95rem;
     }
 }
-
-/* Tech Stack Marquee */
-.tech-marquee {
-    position: absolute;
-    bottom: 5rem;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.marquee-content {
-    display: flex;
-    gap: 3rem;
-    animation: marquee 30s linear infinite;
-    will-change: transform;
-}
-
-.tech-item {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem 2rem;
-    background: var(--bg-card);
-    border-radius: 50px;
-    border: 1px solid var(--border-color);
-    white-space: nowrap;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.tech-item:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-5px);
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-/* Responsive Hero */
-@media (max-width: 768px) {
-    .hero-name {
-        font-size: 2.5rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .hero-description {
-        font-size: 1rem;
-    }
-    
-    .hero-btns {
-        flex-direction: column;
-    }
-    
-    .tech-marquee {
-        bottom: 3rem;
-    }
-    
-    .floating-element:nth-child(1) {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .floating-element:nth-child(2) {
-        width: 150px;
-        height: 150px;
-    }
-    
-    .floating-element:nth-child(3) {
-        width: 100px;
-        height: 100px;
-    }
-    
-    .blob {
-        width: 300px;
-        height: 300px;
-    }
-}
 ```
 
----
-
-## ✨ **All Animations Restored:**
-
-### **1. Tech Grid Animation** ✅
-- Moving horizontal & vertical lines
-- Opacity pulse effect
-
-### **2. Floating Elements** ✅
-- 3 colored orbs floating
-- Different delays & paths
-
-### **3. Animated Blobs** ✅
-- 2 large gradient blobs
-- Smooth movement
-
-### **4. Hero Badge** ✅
-- Pulsing green dot
-- Slide down animation
-
-### **5. Text Animations** ✅
-- Fade in from bottom
-- Staggered timing
-- Gradient color shift
-
-### **6. Tech Marquee** ✅
-- Infinite scrolling
-- Hover effects
-
----
-
-## 🎯 **Animation Timeline:**
-```
-0.0s → Badge slides down
-0.2s → "Hi, I'm" fades in
-0.4s → Name appears
-0.6s → Subtitle appears
-0.8s → Description appears
-1.0s → Buttons appear
-Always → Tech grid pulsing
-Always → Blobs moving
-Always → Floating elements
-Always → Marquee scrolling
-Always → Gradient shifting
 
 /* Main Content Box */
 .hero-content {
