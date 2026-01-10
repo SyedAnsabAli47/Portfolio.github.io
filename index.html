@@ -8,6 +8,7 @@
     <meta name="author" content="Syed Ansab Ali">
     <title>Syed Ansab Ali | Graphic Designer & Web Developer</title>
    
+    <!-- CSS Link -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,12 +17,12 @@
 
     <!-- Navigation -->
     <nav id="navbar">
-           <div class="container">
-        <div class="logo">
-            <a href="#home">
-                <img src="Black Modern A letter Logo.png" alt="Syed Ansab Ali" class="nav-logo">
-            </a>
-        </div>
+        <div class="container">
+            <div class="logo">
+                <a href="#home">
+                    <img src="images/logo.png" alt="Syed Ansab Ali" class="nav-logo">
+                </a>
+            </div>
                
             <ul class="nav-center" id="navLinks">
                 <li><a href="#home">Home</a></li>
@@ -31,6 +32,7 @@
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            
             <div class="nav-right">
                 <div class="theme-toggle" id="themeToggle">
                     <div class="theme-toggle-circle" id="themeCircle">🌙</div>
@@ -46,48 +48,45 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <!-- Tech Grid Animation -->
-       <section id="home" class="hero-fullscreen">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    
-    <div class="hero-content">
-        <p class="hero-greeting">Hi, I'm</p>
-        <h1 class="hero-name">Syed <span class="highlight">Ansab Ali</span></h1>
-        <h2 class="hero-subtitle">Graphic Designer & Website Developer</h2>
-        <p class="hero-description">
-            Transforming creative visions into stunning digital realities. 
-            Specialized in crafting exceptional user experiences through innovative design and clean code.
-        </p>
+        <!-- Animated Blobs -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
         
-        <div class="hero-btns">
-            <a href="#portfolio" class="btn btn-primary">View My Work &rarr;</a>
-            <a href="#contact" class="btn btn-secondary">Let's Talk <i class="far fa-comment-dots"></i></a>
+        <div class="hero-content">
+            <p class="hero-greeting">Hi, I'm</p>
+            <h1 class="hero-name">Syed <span class="highlight">Ansab Ali</span></h1>
+            <h2 class="hero-subtitle">Graphic Designer & Website Developer</h2>
+            <p class="hero-description">
+                Transforming creative visions into stunning digital realities. 
+                Specialized in crafting exceptional user experiences through innovative design and clean code.
+            </p>
+            
+            <div class="hero-btns">
+                <a href="#portfolio" class="btn btn-primary">View My Work &rarr;</a>
+                <a href="#contact" class="btn btn-secondary">Let's Talk 💬</a>
+            </div>
         </div>
-    </div>
-</section>
 
-            <!-- Tech Stack Marquee -->
-            <div class="tech-marquee">
-                <div class="marquee-content">
-                    <div class="tech-item">🎨 Photoshop</div>
-                    <div class="tech-item">✨ Illustrator</div>
-                    <div class="tech-item">💻 HTML5</div>
-                    <div class="tech-item">🎯 CSS3</div>
-                    <div class="tech-item">⚡ JavaScript</div>
-                    <div class="tech-item">🚀 React</div>
-                    <div class="tech-item">🎨 Figma</div>
-                    <div class="tech-item">📱 UI/UX</div>
-                    <!-- Duplicate for seamless loop -->
-                    <div class="tech-item">🎨 Photoshop</div>
-                    <div class="tech-item">✨ Illustrator</div>
-                    <div class="tech-item">💻 HTML5</div>
-                    <div class="tech-item">🎯 CSS3</div>
-                    <div class="tech-item">⚡ JavaScript</div>
-                    <div class="tech-item">🚀 React</div>
-                    <div class="tech-item">🎨 Figma</div>
-                    <div class="tech-item">📱 UI/UX</div>
-                </div>
+        <!-- Tech Stack Marquee -->
+        <div class="tech-marquee">
+            <div class="marquee-content">
+                <div class="tech-item">🎨 Photoshop</div>
+                <div class="tech-item">✨ Illustrator</div>
+                <div class="tech-item">💻 HTML5</div>
+                <div class="tech-item">🎯 CSS3</div>
+                <div class="tech-item">⚡ JavaScript</div>
+                <div class="tech-item">🚀 React</div>
+                <div class="tech-item">🎨 Figma</div>
+                <div class="tech-item">📱 UI/UX</div>
+                <!-- Duplicate for seamless loop -->
+                <div class="tech-item">🎨 Photoshop</div>
+                <div class="tech-item">✨ Illustrator</div>
+                <div class="tech-item">💻 HTML5</div>
+                <div class="tech-item">🎯 CSS3</div>
+                <div class="tech-item">⚡ JavaScript</div>
+                <div class="tech-item">🚀 React</div>
+                <div class="tech-item">🎨 Figma</div>
+                <div class="tech-item">📱 UI/UX</div>
             </div>
         </div>
     </section>
@@ -250,7 +249,7 @@
                         💻
                         <div class="project-overlay">
                             <div class="overlay-content">
-                                <button class="btn" onclick="openPopup()">View Project</button>
+                                <a href="#" class="btn btn-primary">View Project</a>
                             </div>
                         </div>
                     </div>
@@ -344,85 +343,100 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Let's <span class="highlight">Connect</span></h2>
-                <p>Ready to start your next project?</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <a href="mailto:syedansab98@gmail.com">ansab@example.com</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <span style="color: var(--text-secondary);">Karachi, Pakistan</span>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div>
-                            <a href="tel:+923001234567">+92 3303966165 </a>
-                        </div>
-                    </div>
-                </div>
-                <div>
-    <h3 style="margin-bottom: 2rem; font-size: 2rem;">Connect With Me</h3>
-    
-    <!-- LinkedIn Profile Card -->
-   <section id="linkedin-connect">
+   <!-- Contact Section -->
+<section id="contact">
     <div class="container">
         <div class="section-title">
             <h2>Let's <span class="highlight">Connect</span></h2>
-            <p>I am currently open to work and looking for new web development opportunities!</p>
+            <p>Ready to start your next project?</p>
         </div>
-
-        <a href="https://www.linkedin.com/in/syed-ansab-a50031334/" target="_blank" class="linkedin-card">
-            <div class="linkedin-avatar">
-                <img src="your-profile-pic.jpg" alt="Syed Ansab">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <a href="mailto:syedansab98@gmail.com">syedansab98@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <span style="color: var(--text-secondary);">Karachi, Pakistan</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>
+                        <a href="tel:+923303966165">+92 330 3966165</a>
+                    </div>
+                </div>
             </div>
             
-            <div class="linkedin-info">
-                <h4>Syed Ansab</h4>
-                <p>Graphic Designer & Website Developer</p>
-                <div style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
-                    <span>📍 Karachi Division, Sindh, Pakistan</span><br>
-                    <span>🎓 Sindh Agriculture University Tandojam</span>
-                </div>
-                <div class="linkedin-badge">
-                    <svg class="linkedin-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:20px; fill:white; margin-right:8px;">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                    View Profile
-                </div>
-            </div>
-        </a>
-    </div>
-</section>
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">SA</div>
-                <p style="margin-bottom: 1.5rem;">Crafting digital experiences with passion and precision</p>
-                <p>&copy; 2026 Syed Ansab Ali. All rights reserved.</p>
+            <!-- LinkedIn Profile Card -->
+            <div>
+                <a href="https://www.linkedin.com/in/syed-ansab-a50031334/" target="_blank" class="linkedin-card">
+                    <div class="linkedin-avatar">
+                        <img src="images/profile.jpg" alt="Syed Ansab Ali">
+                    </div>
+                    
+                    <div class="linkedin-info">
+                        <h4>Syed Ansab Ali</h4>
+                        <p>Graphic Designer & Website Developer</p>
+                        <div style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            <span>📍 Karachi Division, Sindh, Pakistan</span><br>
+                            <span>🎓 Sindh Agriculture University Tandojam</span><br>
+                            <span style="color: #00FF88;">● Open to work</span>
+                        </div>
+                        <div class="linkedin-badge">
+                            <svg class="linkedin-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:20px; fill:white; margin-right:8px;">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                            View Profile
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
+   <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+               <img src="images/logo.png" alt="Syed Ansab Ali" class="nav-logo">
+            <p style="margin-bottom: 1.5rem;">Crafting digital experiences with passion and precision</p>
+            <p>&copy; 2026 Syed Ansab Ali. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
     <!-- Scroll to Top -->
     <div class="scroll-top" id="scrollTop">↑</div>
 
-    <script>
-       <script src="script.js"></script>
-    </script>
-                            
- </body>
-            </html>            
+    <!-- JavaScript Link -->
+    <script src="script.js"></script>
+
+<!-- Project Modal Popup -->
+<div id="designModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2>Brand Identity Designs</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/logo.png" alt="SAA Logo">
+                <p>Personal Branding</p>
+            </div>
+            <div class="gallery-item">
+                <img src="images/huff-puff.png" alt="Huff n Puff">
+                <p>Huff n Puff Branding</p>
+            </div>
+            <div class="gallery-item">
+                <img src="images/coaching-centre.png" alt="Coaching Centre">
+                <p>M.Zia Khan Coaching Centre</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
