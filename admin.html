@@ -171,6 +171,10 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
 .gp code{font-size:.69rem;background:var(--bg3);border:1px solid var(--border);padding:1px 5px;color:var(--accent);}
 .gp a{color:var(--accent);text-decoration:none;}
 @media(max-width:768px){aside{display:none;}main{margin-left:0;}.srow{grid-template-columns:1fr 1fr;}.fg2{grid-template-columns:1fr;}.ph,.pb{padding:14px;}.lbox,.sbox{padding:26px 18px;margin:12px;}}
+
+.tag-pill{display:inline-flex;align-items:center;gap:5px;background:var(--accent-dim);border:1px solid rgba(232,82,26,.25);color:var(--accent);font-size:.6rem;letter-spacing:1.5px;padding:4px 10px;cursor:pointer;margin:3px;transition:.2s;text-transform:uppercase;}
+.tag-pill:hover{background:var(--accent);color:#fff;}
+.tag-suggest-label{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;display:block;}
 </style>
 </head>
 <body>
@@ -286,10 +290,16 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
         <div class="card"><div class="ct">Project Details</div>
           <div class="fg2">
             <div class="fg"><label>Title *</label><input type="text" id="nt" placeholder="e.g. Logo for XYZ"></div>
-            <div class="fg"><label>Category *</label><select id="nc"><option value="">Select...</option><option>Logo Design</option><option>Branding</option><option>Social Media</option><option>Print</option><option>Poster</option></select></div>
+            <div class="fg"><label>Category *</label><select id="nc" onchange="suggestTags()"><option value="">Select...</option><option>Logo Design</option><option>Branding</option><option>Social Media</option><option>Print</option><option>Poster</option><option>Packaging</option><option>Motion Graphics</option><option>UI Graphics</option><option>Infographic</option></select></div>
             <div class="fg ff"><label>Image URL *</label><input type="url" id="ni" placeholder="https://..." oninput="prevI(this.value)"><img id="np" class="ipv" src="" alt="Preview"></div>
             <div class="fg ff"><label>Description</label><input type="text" id="nd" placeholder="Short description..."></div>
+            <div class="fg"><label>Skill / Service</label><select id="nsk"><option value="">Select Skill...</option><option>Logo Design</option><option>Brand Identity</option><option>Social Media Design</option><option>Print Design</option><option>Poster Design</option><option>Banner Design</option><option>Packaging Design</option><option>Motion Graphics</option><option>UI/UX Design</option><option>Infographic Design</option><option>Typography</option><option>Illustration</option></select></div>
             <div class="fg"><label>Year</label><input type="text" id="ny" value="2025"></div>
+            <div class="fg ff">
+              <label>Tags <span style="color:var(--text-dim);font-weight:300;">(comma se alag karein)</span></label>
+              <input type="text" id="ntags" placeholder="e.g. logo, minimalist, brand, green">
+              <div id="tag-suggestions" style="display:none;margin-top:8px;"></div>
+            </div>
           </div>
           <div style="display:flex;gap:9px;margin-top:16px;">
             <button class="btn" onclick="addProject()">Save Project &rarr;</button>
@@ -468,7 +478,31 @@ async function doLogin(){
     document.getElementById('ar').textContent=creds.gr;
     document.getElementById('ag').textContent=creds.gu;
     errEl.classList.remove('show');
-    loadData();
+    
+var TAG_DB = {"Logo Design": ["logo", "logodesign", "branding", "minimal", "monogram", "wordmark", "lettermark", "brand", "identity", "vector", "logodesigner"], "Branding": ["branding", "brandidentity", "visualidentity", "branddesign", "brandstrategy", "colorpalette", "typography", "logodesign"], "Social Media": ["socialmedia", "instagram", "facebook", "contentcreator", "postdesign", "graphicdesign", "digitalmarketing", "reels", "stories"], "Print": ["printdesign", "businesscard", "flyer", "brochure", "printready", "cmyk", "typography", "stationery"], "Poster": ["posterdesign", "eventposter", "digitalart", "graphicdesign", "typography", "illustration", "artdirection"], "Packaging": ["packaging", "productdesign", "labeldesign", "boxdesign", "packagedesign", "brandedpackaging", "dieline"], "Motion Graphics": ["motiongraphics", "aftereffects", "animation", "animatedlogo", "motiondesign", "videoediting", "reels"], "UI Graphics": ["uidesign", "uxdesign", "webdesign", "appdesign", "figma", "wireframe", "prototype", "interfacedesign"], "Infographic": ["infographic", "datavisualization", "infographicdesign", "visualdata", "chartdesign", "statistics"]};
+
+function suggestTags(){
+  var cat = document.getElementById('nc').value;
+  var box = document.getElementById('tag-suggestions');
+  var suggestions = TAG_DB[cat] || [];
+  if(!suggestions.length){ box.style.display='none'; return; }
+  box.style.display='block';
+  box.innerHTML = '<span class="tag-suggest-label">Trending Tags &mdash; click to add:</span><br>' +
+    suggestions.map(function(tag){
+      return '<span class="tag-pill" onclick="addTag(\''+tag+'\')">&#35;'+tag+'</span>';
+    }).join('');
+}
+
+function addTag(tag){
+  var input = document.getElementById('ntags');
+  var current = input.value.trim();
+  var existing = current ? current.split(',').map(function(t){return t.trim().replace(/^#/,'');}) : [];
+  if(existing.indexOf(tag) === -1){
+    input.value = existing.concat([tag]).join(', ');
+  }
+}
+
+loadData();
   } else {
     errEl.classList.add('show'); errEl.textContent='Username ya password galat hai!';
     btn.disabled=false; btn.textContent='Login \u2192';
@@ -575,10 +609,12 @@ async function addProject(){
   var i=document.getElementById('ni').value.trim();
   var d=document.getElementById('nd').value.trim();
   var y=document.getElementById('ny').value.trim()||'2025';
+  var sk=document.getElementById('nsk').value;
+  var tagsRaw=document.getElementById('ntags').value;
+  var tags=tagsRaw.split(',').map(function(t){return t.trim().replace(/^#/,'');}).filter(function(t){return t.length>0;});
   if(!t||!c||!i){toast('Title, Category, Image URL zaroor!','err');return;}
-  DATA.projects.push({id:Date.now(),title:t,category:c,image:i,description:d,year:y});
-  await saveData('Project add ho gaya!');
-  clearForm(); refreshUI(); showTab('projects');
+  DATA.projects.push({id:Date.now(),title:t,category:c,image:i,description:d,year:y,skill:sk,tags:tags});
+  saveData('Project add ho gaya!').then(function(){clearForm();refreshUI();showTab('projects');});
 }
 async function delProject(id){
   if(!confirm('Delete karein?'))return;
@@ -587,9 +623,12 @@ async function delProject(id){
   refreshUI();
 }
 function clearForm(){
-  ['nt','ni','nd'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('nc').value=''; document.getElementById('ny').value='2025';
+  ['nt','ni','nd','ntags'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('nc').value='';
+  document.getElementById('nsk').value='';
+  document.getElementById('ny').value='2025';
   document.getElementById('np').classList.remove('show');
+  document.getElementById('tag-suggestions').style.display='none';
 }
 function prevI(url){var p=document.getElementById('np');if(url.startsWith('http')){p.src=url;p.classList.add('show');}else p.classList.remove('show');}
 function fillSettings(){
@@ -651,7 +690,31 @@ window.addEventListener('DOMContentLoaded',function(){
     document.getElementById('aun').textContent=creds.u;
     document.getElementById('ar').textContent=creds.gr;
     document.getElementById('ag').textContent=creds.gu;
-    loadData();
+    
+var TAG_DB = {"Logo Design": ["logo", "logodesign", "branding", "minimal", "monogram", "wordmark", "lettermark", "brand", "identity", "vector", "logodesigner"], "Branding": ["branding", "brandidentity", "visualidentity", "branddesign", "brandstrategy", "colorpalette", "typography", "logodesign"], "Social Media": ["socialmedia", "instagram", "facebook", "contentcreator", "postdesign", "graphicdesign", "digitalmarketing", "reels", "stories"], "Print": ["printdesign", "businesscard", "flyer", "brochure", "printready", "cmyk", "typography", "stationery"], "Poster": ["posterdesign", "eventposter", "digitalart", "graphicdesign", "typography", "illustration", "artdirection"], "Packaging": ["packaging", "productdesign", "labeldesign", "boxdesign", "packagedesign", "brandedpackaging", "dieline"], "Motion Graphics": ["motiongraphics", "aftereffects", "animation", "animatedlogo", "motiondesign", "videoediting", "reels"], "UI Graphics": ["uidesign", "uxdesign", "webdesign", "appdesign", "figma", "wireframe", "prototype", "interfacedesign"], "Infographic": ["infographic", "datavisualization", "infographicdesign", "visualdata", "chartdesign", "statistics"]};
+
+function suggestTags(){
+  var cat = document.getElementById('nc').value;
+  var box = document.getElementById('tag-suggestions');
+  var suggestions = TAG_DB[cat] || [];
+  if(!suggestions.length){ box.style.display='none'; return; }
+  box.style.display='block';
+  box.innerHTML = '<span class="tag-suggest-label">Trending Tags &mdash; click to add:</span><br>' +
+    suggestions.map(function(tag){
+      return '<span class="tag-pill" onclick="addTag(\''+tag+'\')">&#35;'+tag+'</span>';
+    }).join('');
+}
+
+function addTag(tag){
+  var input = document.getElementById('ntags');
+  var current = input.value.trim();
+  var existing = current ? current.split(',').map(function(t){return t.trim().replace(/^#/,'');}) : [];
+  if(existing.indexOf(tag) === -1){
+    input.value = existing.concat([tag]).join(', ');
+  }
+}
+
+loadData();
   }
 });
 </script>
