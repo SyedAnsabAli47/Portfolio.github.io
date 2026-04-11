@@ -17,28 +17,44 @@
   },
   "services": [
     {
-      "id": 1,
       "icon": "&#10022;",
       "title": "Logo & Brand Identity",
-      "desc": "Memorable logos and complete brand systems that define who you are and what you stand for."
+      "desc": "Memorable logos, brand marks aur complete visual identity systems jo market mein alag dikhein."
     },
     {
-      "id": 2,
       "icon": "&#9672;",
       "title": "Social Media Design",
-      "desc": "Eye-catching posts, stories, and banners that stop the scroll and grow your audience."
+      "desc": "Instagram, Facebook, TikTok ke liye scroll-stopping posts, stories aur reels covers."
     },
     {
-      "id": 3,
       "icon": "&#9711;",
       "title": "Print Design",
-      "desc": "Business cards, flyers, brochures \u2014 print materials that make a lasting impression."
+      "desc": "Business cards, flyers, brochures aur banners jo professionally designed hon."
     },
     {
-      "id": 4,
       "icon": "&#9680;",
       "title": "Poster & Banner Design",
-      "desc": "Bold, creative visuals for events, campaigns, and promotions that demand attention."
+      "desc": "Event posters, digital banners aur outdoor advertising ke liye bold visuals."
+    },
+    {
+      "icon": "&#9733;",
+      "title": "Packaging Design",
+      "desc": "Product packaging jo shelf par alag dikhe \u2014 boxes, labels, pouches aur wrappers."
+    },
+    {
+      "icon": "&#9670;",
+      "title": "UI/UX & Web Graphics",
+      "desc": "Website banners, landing page graphics aur app icons jo brand ko online strong banayein."
+    },
+    {
+      "icon": "&#8857;",
+      "title": "Motion Graphics",
+      "desc": "Animated logos, social media reels aur promotional video graphics \u2014 ab demand mein sabse zyada."
+    },
+    {
+      "icon": "&#9826;",
+      "title": "Infographic Design",
+      "desc": "Complex information ko visually appealing aur easy-to-understand graphics mein convert karna."
     }
   ],
   "categories": [
@@ -47,7 +63,11 @@
     "Branding",
     "Social Media",
     "Print",
-    "Poster"
+    "Poster",
+    "Packaging",
+    "Motion Graphics",
+    "UI Graphics",
+    "Infographic"
   ],
   "projects": [
     {
