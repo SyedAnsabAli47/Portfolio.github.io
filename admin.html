@@ -175,7 +175,11 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
 .tag-pill{display:inline-flex;align-items:center;gap:5px;background:var(--accent-dim);border:1px solid rgba(232,82,26,.25);color:var(--accent);font-size:.6rem;letter-spacing:1.5px;padding:4px 10px;cursor:pointer;margin:3px;transition:.2s;text-transform:uppercase;}
 .tag-pill:hover{background:var(--accent);color:#fff;}
 .tag-suggest-label{font-size:.55rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;display:block;}
+
+#upload-btn { transition: opacity .2s; }
+#upload-btn:disabled { opacity: .5; cursor: not-allowed; }
 </style>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="toast"></div>
@@ -291,7 +295,24 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
           <div class="fg2">
             <div class="fg"><label>Title *</label><input type="text" id="nt" placeholder="e.g. Logo for XYZ"></div>
             <div class="fg"><label>Category *</label><select id="nc" onchange="suggestTags()"><option value="">Select...</option><option>Logo Design</option><option>Branding</option><option>Social Media</option><option>Print</option><option>Poster</option><option>Packaging</option><option>Motion Graphics</option><option>UI Graphics</option><option>Infographic</option></select></div>
-            <div class="fg ff"><label>Image URL *</label><input type="url" id="ni" placeholder="https://..." oninput="prevI(this.value)"><img id="np" class="ipv" src="" alt="Preview"></div>
+            <div class="fg ff">
+              <label>Project Image *</label>
+              <div style="display:flex;gap:9px;align-items:flex-start;flex-wrap:wrap;">
+                <button type="button" class="btn" id="upload-btn" onclick="openCloudinary()" style="flex-shrink:0;">
+                  &#8679; Upload Image
+                </button>
+                <div style="flex:1;min-width:200px;">
+                  <input type="url" id="ni" placeholder="Ya URL paste karein..." oninput="prevI(this.value)" style="width:100%;">
+                </div>
+              </div>
+              <div id="upload-progress" style="display:none;margin-top:8px;">
+                <div style="height:2px;background:var(--border);border-radius:1px;overflow:hidden;">
+                  <div id="upload-bar" style="height:100%;width:0%;background:var(--accent);transition:width .3s;"></div>
+                </div>
+                <div id="upload-status" style="font-size:.65rem;color:var(--text-dim);margin-top:4px;letter-spacing:1px;">Uploading...</div>
+              </div>
+              <img id="np" class="ipv" src="" alt="Preview" style="margin-top:8px;">
+            </div>
             <div class="fg ff"><label>Description</label><input type="text" id="nd" placeholder="Short description..."></div>
             <div class="fg"><label>Skill / Service</label><select id="nsk"><option value="">Select Skill...</option><option>Logo Design</option><option>Brand Identity</option><option>Social Media Design</option><option>Print Design</option><option>Poster Design</option><option>Banner Design</option><option>Packaging Design</option><option>Motion Graphics</option><option>UI/UX Design</option><option>Infographic Design</option><option>Typography</option><option>Illustration</option></select></div>
             <div class="fg"><label>Year</label><input type="text" id="ny" value="2025"></div>
@@ -500,6 +521,68 @@ function addTag(tag){
   if(existing.indexOf(tag) === -1){
     input.value = existing.concat([tag]).join(', ');
   }
+}
+
+
+// CLOUDINARY UPLOAD
+var CLD_WIDGET = null;
+function openCloudinary(){
+  var btn = document.getElementById('upload-btn');
+  btn.disabled = true;
+  btn.textContent = 'Opening...';
+  
+  if(!CLD_WIDGET){
+    CLD_WIDGET = cloudinary.createUploadWidget({
+      cloudName: 'db1coye8a',
+      uploadPreset: 'syedansabali_portfolio',
+      sources: ['local', 'url', 'camera'],
+      multiple: false,
+      maxFileSize: 5000000,
+      clientAllowedFormats: ['jpg','jpeg','png','webp','gif'],
+      styles: {
+        palette: {
+          window: '#1a1a1a',
+          windowBorder: '#252525',
+          tabIcon: '#e8521a',
+          menuIcons: '#6e6a65',
+          textDark: '#f2ede6',
+          textLight: '#f2ede6',
+          link: '#e8521a',
+          action: '#e8521a',
+          inactiveTabIcon: '#6e6a65',
+          error: '#ef4444',
+          inProgress: '#e8521a',
+          complete: '#22c55e',
+          sourceBg: '#131313'
+        },
+        fonts: { default: null, "'DM Sans', sans-serif": { url: 'https://fonts.googleapis.com/css2?family=DM+Sans', active: true } }
+      }
+    }, function(error, result){
+      if(error){
+        toast('Upload error! Try again.', 'err');
+        resetUploadBtn();
+        return;
+      }
+      if(result.event === 'success'){
+        var url = result.info.secure_url;
+        document.getElementById('ni').value = url;
+        prevI(url);
+        toast('Image upload ho gaya!', 'ok');
+        resetUploadBtn();
+      }
+      if(result.event === 'close'){
+        resetUploadBtn();
+      }
+    });
+  }
+  
+  CLD_WIDGET.open();
+  resetUploadBtn();
+}
+
+function resetUploadBtn(){
+  var btn = document.getElementById('upload-btn');
+  if(btn){ btn.disabled = false; btn.innerHTML = '&#8679; Upload Image'; }
 }
 
 loadData();
@@ -712,6 +795,68 @@ function addTag(tag){
   if(existing.indexOf(tag) === -1){
     input.value = existing.concat([tag]).join(', ');
   }
+}
+
+
+// CLOUDINARY UPLOAD
+var CLD_WIDGET = null;
+function openCloudinary(){
+  var btn = document.getElementById('upload-btn');
+  btn.disabled = true;
+  btn.textContent = 'Opening...';
+  
+  if(!CLD_WIDGET){
+    CLD_WIDGET = cloudinary.createUploadWidget({
+      cloudName: 'db1coye8a',
+      uploadPreset: 'syedansabali_portfolio',
+      sources: ['local', 'url', 'camera'],
+      multiple: false,
+      maxFileSize: 5000000,
+      clientAllowedFormats: ['jpg','jpeg','png','webp','gif'],
+      styles: {
+        palette: {
+          window: '#1a1a1a',
+          windowBorder: '#252525',
+          tabIcon: '#e8521a',
+          menuIcons: '#6e6a65',
+          textDark: '#f2ede6',
+          textLight: '#f2ede6',
+          link: '#e8521a',
+          action: '#e8521a',
+          inactiveTabIcon: '#6e6a65',
+          error: '#ef4444',
+          inProgress: '#e8521a',
+          complete: '#22c55e',
+          sourceBg: '#131313'
+        },
+        fonts: { default: null, "'DM Sans', sans-serif": { url: 'https://fonts.googleapis.com/css2?family=DM+Sans', active: true } }
+      }
+    }, function(error, result){
+      if(error){
+        toast('Upload error! Try again.', 'err');
+        resetUploadBtn();
+        return;
+      }
+      if(result.event === 'success'){
+        var url = result.info.secure_url;
+        document.getElementById('ni').value = url;
+        prevI(url);
+        toast('Image upload ho gaya!', 'ok');
+        resetUploadBtn();
+      }
+      if(result.event === 'close'){
+        resetUploadBtn();
+      }
+    });
+  }
+  
+  CLD_WIDGET.open();
+  resetUploadBtn();
+}
+
+function resetUploadBtn(){
+  var btn = document.getElementById('upload-btn');
+  if(btn){ btn.disabled = false; btn.innerHTML = '&#8679; Upload Image'; }
 }
 
 loadData();
