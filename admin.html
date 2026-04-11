@@ -642,11 +642,44 @@ function ghH(){return{Authorization:'token '+GHT,'Content-Type':'application/jso
 async function loadData(){
   try{
     var r=await fetch('https://api.github.com/repos/'+GHU+'/'+GHR+'/contents/portfolio-data.json',{headers:ghH()});
-    if(!r.ok)throw new Error();
-    var j=await r.json(); SHA=j.sha;
+    if(r.status===404){
+      // File nahi hai - auto create karo
+      toast('portfolio-data.json nahi mila, create kar raha hun...','warn');
+      await createDefaultData();
+      return;
+    }
+    if(!r.ok)throw new Error('GitHub API error: '+r.status);
+    var j=await r.json();
+    SHA=j.sha;
     DATA=JSON.parse(atob(j.content.replace(/\n/g,'')));
     refreshUI();
-  }catch(e){toast('portfolio-data.json nahi mila -- pehle upload karein','err');}
+  }catch(e){
+    console.error('loadData error:',e);
+    toast('Error: '+e.message+' -- Token/Repo check karein','err');
+  }
+}
+
+async function createDefaultData(){
+  var defaultData='{"designer": {"name": "Syed Ansab Ali", "title": "Graphics Designer", "tagline": "Crafting visual identities that speak louder than words.", "bio": "I am a passionate Graphics Designer from Karachi, Pakistan \u2014 specializing in brand identity, logo design, social media creatives, and print design. I turn ideas into visuals that leave a lasting impression.", "email": "syedansab98@gmail.com", "phone": "+92 330 3966165", "location": "Karachi, Pakistan", "social": {"linkedin": "https://www.linkedin.com/in/syed-ansab-a50031334/", "instagram": "", "behance": "", "fiverr": ""}, "avatar": "https://www.dropbox.com/scl/fi/6b0t6ejxsksyklzzd9v1p/profile.jpeg?rlkey=t17qqyo4lw1698szk1kzx7zsq&st=5aqti4fk&dl=1"}, "services": [{"icon": "&#10022;", "title": "Logo & Brand Identity", "desc": "Memorable logos, brand marks aur complete visual identity systems jo market mein alag dikhein."}, {"icon": "&#9672;", "title": "Social Media Design", "desc": "Instagram, Facebook, TikTok ke liye scroll-stopping posts, stories aur reels covers."}, {"icon": "&#9711;", "title": "Print Design", "desc": "Business cards, flyers, brochures aur banners jo professionally designed hon."}, {"icon": "&#9680;", "title": "Poster & Banner Design", "desc": "Event posters, digital banners aur outdoor advertising ke liye bold visuals."}, {"icon": "&#9733;", "title": "Packaging Design", "desc": "Product packaging jo shelf par alag dikhe \u2014 boxes, labels, pouches aur wrappers."}, {"icon": "&#9670;", "title": "UI/UX & Web Graphics", "desc": "Website banners, landing page graphics aur app icons jo brand ko online strong banayein."}, {"icon": "&#8857;", "title": "Motion Graphics", "desc": "Animated logos, social media reels aur promotional video graphics \u2014 ab demand mein sabse zyada."}, {"icon": "&#9826;", "title": "Infographic Design", "desc": "Complex information ko visually appealing aur easy-to-understand graphics mein convert karna."}], "categories": ["All", "Logo Design", "Branding", "Social Media", "Print", "Poster", "Packaging", "Motion Graphics", "UI Graphics", "Infographic"], "projects": [{"id": 1, "title": "SAA Personal Brand", "category": "Branding", "image": "https://www.dropbox.com/scl/fi/snup0qmnh9u4lzl58maaw/logo.png?rlkey=mhf773wn549fcbsemxzhcftjo&st=xnh7x88y&dl=1", "description": "Personal brand identity and logo design", "year": "2024"}, {"id": 2, "title": "Huff n Puff", "category": "Logo Design", "image": "https://www.dropbox.com/scl/fi/6dn80zswghgi2kksphsjv/huff-puff.png?rlkey=cpoan9v6jgdqlzilmxi7ip7pu&st=4j2lhuzo&dl=1", "description": "Brand identity design for Huff n Puff", "year": "2024"}, {"id": 3, "title": "M. Zia Khan Coaching Centre", "category": "Branding", "image": "https://www.dropbox.com/scl/fi/k7kd08rag0cq1f5lnnxfx/coaching-centre.png?rlkey=vuvuoe8279gt90su533n77qmo&st=8u5wr34s&dl=1", "description": "Complete branding for coaching centre", "year": "2024"}], "testimonials": [{"id": 1, "name": "Client Name", "role": "Business Owner", "text": "Absolutely loved the work! The logo perfectly captured my brand vision. Highly recommended!", "avatar": ""}], "stats": {"projects": "100+", "clients": "50+", "experience": "5+", "satisfaction": "100%"}}';
+  DATA=JSON.parse(defaultData);
+  SHA='';
+  try{
+    var content=btoa(unescape(encodeURIComponent(JSON.stringify(DATA,null,2))));
+    var r=await fetch('https://api.github.com/repos/'+GHU+'/'+GHR+'/contents/portfolio-data.json',{
+      method:'PUT',headers:ghH(),
+      body:JSON.stringify({message:'Create portfolio-data.json',content:content})
+    });
+    var j=await r.json();
+    if(j.content){
+      SHA=j.content.sha;
+      toast('portfolio-data.json create ho gaya!','ok');
+      refreshUI();
+    } else {
+      toast('File create failed: '+(j.message||'Token permissions check karein'),'err');
+    }
+  }catch(e){
+    toast('Network error: '+e.message,'err');
+  }
 }
 async function saveData(msg){
   setSaving(1);
@@ -655,7 +688,15 @@ async function saveData(msg){
     var r=await fetch('https://api.github.com/repos/'+GHU+'/'+GHR+'/contents/portfolio-data.json',{method:'PUT',headers:ghH(),body:JSON.stringify({message:'Update portfolio',content:content,sha:SHA})});
     var j=await r.json();
     if(j.content){SHA=j.content.sha;toast(msg||'Saved!','ok');}
-    else toast('Error: '+(j.message||'Try again'),'err');
+    else {
+      var msg = j.message || 'Try again';
+      if(msg.indexOf('conflict')>-1 || msg.indexOf('sha')>-1){
+        toast('SHA conflict -- page reload karein','err');
+        setTimeout(function(){location.reload();},2000);
+      } else {
+        toast('Save error: '+msg,'err');
+      }
+    }
   }catch(e){toast('Network error!','err');}
   setSaving(0);
 }
