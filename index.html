@@ -158,44 +158,6 @@ footer p{font-size:.65rem;color:var(--text-dim);letter-spacing:1px;}
   body{cursor:auto;} #cur,#cr{display:none;}
 }
 
-/* HERO ANIMATIONS */
-.hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(232,82,26,.15);animation:ringPulse 4s ease-in-out infinite;}
-.hr1{width:420px;height:420px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:0s;}
-.hr2{width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:.8s;}
-.hr3{width:780px;height:780px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.6s;}
-@keyframes ringPulse{0%,100%{opacity:.15;transform:translate(-50%,-50%) scale(1);}50%{opacity:.35;transform:translate(-50%,-50%) scale(1.03);}}
-
-.hero-shape{position:absolute;opacity:0;animation:floatIn 1s ease forwards;}
-.hs1{top:18%;left:8%;animation-delay:.3s;}
-.hs2{top:25%;right:10%;animation-delay:.6s;}
-.hs3{bottom:22%;left:12%;animation-delay:.9s;}
-.hs4{bottom:28%;right:8%;animation-delay:1.2s;}
-@keyframes floatIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-
-.hs-inner{animation:floatUpDown 6s ease-in-out infinite;}
-.hs1 .hs-inner{animation-delay:0s;}
-.hs2 .hs-inner{animation-delay:1.5s;}
-.hs3 .hs-inner{animation-delay:3s;}
-.hs4 .hs-inner{animation-delay:4.5s;}
-@keyframes floatUpDown{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-
-.hero-line{position:absolute;background:linear-gradient(to bottom,transparent,rgba(232,82,26,.3),transparent);width:1px;animation:lineFade 3s ease-in-out infinite;}
-.hl1{height:120px;top:15%;left:20%;animation-delay:0s;}
-.hl2{height:80px;top:40%;right:18%;animation-delay:1s;}
-.hl3{height:100px;bottom:20%;left:40%;animation-delay:2s;}
-@keyframes lineFade{0%,100%{opacity:0;transform:scaleY(.5);}50%{opacity:1;transform:scaleY(1);}}
-
-/* Text animations */
-.hc .hlbl{animation:fadeSlideUp .7s ease forwards;opacity:0;animation-delay:.2s;}
-.hc h1{animation:fadeSlideUp .8s ease forwards;opacity:0;animation-delay:.5s;}
-.hc .hbio{animation:fadeSlideUp .8s ease forwards;opacity:0;animation-delay:.8s;}
-.hc .hbtns{animation:fadeSlideUp .8s ease forwards;opacity:0;animation-delay:1s;}
-.hside .hst:nth-child(1){animation:fadeSlideLeft .8s ease forwards;opacity:0;animation-delay:.9s;}
-.hside .hst:nth-child(2){animation:fadeSlideLeft .8s ease forwards;opacity:0;animation-delay:1.1s;}
-.hside .hst:nth-child(3){animation:fadeSlideLeft .8s ease forwards;opacity:0;animation-delay:1.3s;}
-@keyframes fadeSlideUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeSlideLeft{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
-
 /* Dot pulse on label */
 .dot{animation:pulse 2s ease infinite,dotAppear .5s ease forwards;opacity:0;}
 @keyframes dotAppear{to{opacity:1;}}
@@ -208,6 +170,73 @@ footer p{font-size:.65rem;color:var(--text-dim);letter-spacing:1px;}
 /* Typewriter cursor on h1 */
 .cursor-blink{display:inline-block;width:3px;height:.8em;background:var(--accent);margin-left:4px;vertical-align:middle;animation:blink 1s step-end infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+/*  HERO DESIGN ELEMENTS  */
+
+/* Big rotating ring */
+.h-ring{position:absolute;border-radius:50%;border:1px solid rgba(232,82,26,.5);pointer-events:none;}
+.h-ring-1{width:700px;height:700px;top:50%;left:50%;margin-left:-350px;margin-top:-350px;animation:hRing1 12s linear infinite;}
+.h-ring-2{width:900px;height:900px;top:50%;left:50%;margin-left:-450px;margin-top:-450px;border-color:rgba(232,82,26,.2);animation:hRing1 20s linear infinite reverse;}
+.h-ring-3{width:500px;height:500px;top:50%;left:50%;margin-left:-250px;margin-top:-250px;border-color:rgba(232,82,26,.35);border-style:dashed;animation:hRing1 8s linear infinite;}
+@keyframes hRing1{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* Corner brackets */
+.h-corner{position:absolute;width:80px;height:80px;pointer-events:none;opacity:.7;}
+.h-corner::before,.h-corner::after{content:'';position:absolute;background:var(--accent);}
+.hc-tl{top:100px;left:40px;}
+.hc-tl::before{top:0;left:0;width:80px;height:2px;}
+.hc-tl::after{top:0;left:0;width:2px;height:80px;}
+.hc-tr{top:100px;right:40px;}
+.hc-tr::before{top:0;right:0;width:80px;height:2px;}
+.hc-tr::after{top:0;right:0;width:2px;height:80px;}
+.hc-bl{bottom:60px;left:40px;}
+.hc-bl::before{bottom:0;left:0;width:80px;height:2px;}
+.hc-bl::after{bottom:0;left:0;width:2px;height:80px;}
+.hc-br{bottom:60px;right:40px;}
+.hc-br::before{bottom:0;right:0;width:80px;height:2px;}
+.hc-br::after{bottom:0;right:0;width:2px;height:80px;}
+
+/* Floating design tool elements */
+.h-el{position:absolute;pointer-events:none;animation:hFloat 5s ease-in-out infinite;}
+.h-el svg{display:block;}
+
+/* Float animations - different speeds */
+@keyframes hFloat{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-18px) rotate(3deg);}}
+@keyframes hFloat2{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-22px) rotate(-4deg);}}
+@keyframes hFloat3{0%,100%{transform:translateY(0) rotate(5deg);}50%{transform:translateY(-15px) rotate(-2deg);}}
+@keyframes hFloat4{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-20px) rotate(2deg);}}
+@keyframes hFloat5{0%,100%{transform:translateY(0);}50%{transform:translateY(-25px);}}
+
+/* Fade in on load */
+@keyframes hElIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.h-el{opacity:0;animation:hElIn .8s ease forwards, hFloat 5s ease-in-out 1s infinite;}
+.h-el:nth-child(1){animation:hElIn .8s ease .2s forwards, hFloat 6s ease-in-out 1s infinite;}
+.h-el:nth-child(2){animation:hElIn .8s ease .4s forwards, hFloat2 5s ease-in-out 1.2s infinite;}
+.h-el:nth-child(3){animation:hElIn .8s ease .6s forwards, hFloat3 7s ease-in-out 1.4s infinite;}
+.h-el:nth-child(4){animation:hElIn .8s ease .8s forwards, hFloat4 4s ease-in-out 1.6s infinite;}
+.h-el:nth-child(5){animation:hElIn .8s ease 1s forwards, hFloat5 6s ease-in-out 1.8s infinite;}
+.h-el:nth-child(6){animation:hElIn .8s ease 1.2s forwards, hFloat2 5s ease-in-out 2s infinite;}
+.h-el:nth-child(7){animation:hElIn .8s ease 1.4s forwards, hFloat3 8s ease-in-out 2.2s infinite;}
+.h-el:nth-child(8){animation:hElIn .8s ease 1.6s forwards, hFloat4 5s ease-in-out 2.4s infinite;}
+
+/* Accent dots scattered */
+.h-dot{position:absolute;border-radius:50%;background:var(--accent);pointer-events:none;animation:hDotPulse 3s ease-in-out infinite;}
+@keyframes hDotPulse{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.8);opacity:1;}}
+
+/* Scan line */
+.h-scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,82,26,.5),transparent);animation:hScan 6s ease-in-out infinite;pointer-events:none;}
+@keyframes hScan{0%{top:20%;opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{top:80%;opacity:0;}}
+
+/* Text animations - faster */
+.hc .hlbl{animation:hTxtUp .5s ease .3s both;}
+.hc h1{animation:hTxtUp .6s ease .5s both;}
+.hc .hbio{animation:hTxtUp .5s ease .8s both;}
+.hc .hbtns{animation:hTxtUp .5s ease 1s both;}
+.hside .hst:nth-child(1){animation:hTxtR .5s ease .7s both;}
+.hside .hst:nth-child(2){animation:hTxtR .5s ease .9s both;}
+.hside .hst:nth-child(3){animation:hTxtR .5s ease 1.1s both;}
+@keyframes hTxtUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+@keyframes hTxtR{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:none;}}
+
 </style>
 </head>
 <body>
@@ -224,55 +253,171 @@ footer p{font-size:.65rem;color:var(--text-dim);letter-spacing:1px;}
   <div class="nr"><div class="tog" id="themeToggle"><div class="tok" id="themeKnob">&#127769;</div></div><div class="hbg" id="hamburger"><span></span><span></span><span></span></div></div>
 </nav>
 <section id="hero">
-  <!-- Pulsing rings -->
-  <div class="hero-ring hr1"></div>
-  <div class="hero-ring hr2"></div>
-  <div class="hero-ring hr3"></div>
 
-  <!-- Corner decorations -->
-  <div class="hero-corner hcor-tl"></div>
-  <div class="hero-corner hcor-br"></div>
+  <!-- Rotating rings -->
+  <div class="h-ring h-ring-1"></div>
+  <div class="h-ring h-ring-2"></div>
+  <div class="h-ring h-ring-3"></div>
 
-  <!-- Floating design shapes -->
-  <div class="hero-shape hs1">
-    <div class="hs-inner">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <rect x="8" y="8" width="32" height="32" stroke="rgba(232,82,26,.4)" stroke-width="1" fill="none" transform="rotate(15 24 24)"/>
-        <rect x="14" y="14" width="20" height="20" stroke="rgba(232,82,26,.25)" stroke-width="1" fill="none" transform="rotate(15 24 24)"/>
-      </svg>
-    </div>
-  </div>
-  <div class="hero-shape hs2">
-    <div class="hs-inner">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-        <circle cx="20" cy="20" r="16" stroke="rgba(232,82,26,.35)" stroke-width="1" fill="none"/>
-        <circle cx="20" cy="20" r="8" stroke="rgba(232,82,26,.2)" stroke-width="1" fill="rgba(232,82,26,.05)"/>
-        <circle cx="20" cy="20" r="2" fill="rgba(232,82,26,.5)"/>
-      </svg>
-    </div>
-  </div>
-  <div class="hero-shape hs3">
-    <div class="hs-inner">
-      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-        <polygon points="22,4 40,38 4,38" stroke="rgba(232,82,26,.35)" stroke-width="1" fill="none"/>
-        <polygon points="22,12 34,34 10,34" stroke="rgba(232,82,26,.2)" stroke-width="1" fill="rgba(232,82,26,.04)"/>
-      </svg>
-    </div>
-  </div>
-  <div class="hero-shape hs4">
-    <div class="hs-inner">
-      <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-        <line x1="4" y1="19" x2="34" y2="19" stroke="rgba(232,82,26,.4)" stroke-width="1"/>
-        <line x1="19" y1="4" x2="19" y2="34" stroke="rgba(232,82,26,.4)" stroke-width="1"/>
-        <rect x="10" y="10" width="18" height="18" stroke="rgba(232,82,26,.3)" stroke-width="1" fill="none" transform="rotate(45 19 19)"/>
-      </svg>
-    </div>
+  <!-- Corner brackets -->
+  <div class="h-corner hc-tl"></div>
+  <div class="h-corner hc-tr"></div>
+  <div class="h-corner hc-bl"></div>
+  <div class="h-corner hc-br"></div>
+
+  <!-- Scan line -->
+  <div class="h-scan"></div>
+
+  <!-- Accent dots -->
+  <div class="h-dot" style="width:8px;height:8px;top:22%;left:22%;animation-delay:0s;"></div>
+  <div class="h-dot" style="width:5px;height:5px;top:65%;left:15%;animation-delay:1s;"></div>
+  <div class="h-dot" style="width:6px;height:6px;top:35%;right:20%;animation-delay:.5s;"></div>
+  <div class="h-dot" style="width:9px;height:9px;top:72%;right:25%;animation-delay:1.5s;"></div>
+  <div class="h-dot" style="width:4px;height:4px;top:45%;left:35%;animation-delay:2s;"></div>
+
+  <!-- DESIGN TOOL FLOATING ELEMENTS -->
+
+  <!-- 1. PEN TOOL (top left) -->
+  <div class="h-el" style="top:18%;left:6%;">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+      <!-- Pen body -->
+      <rect x="32" y="8" width="16" height="40" rx="3" fill="rgba(232,82,26,.15)" stroke="rgba(232,82,26,.8)" stroke-width="1.5"/>
+      <!-- Pen tip -->
+      <path d="M32 48 L40 70 L48 48Z" fill="rgba(232,82,26,.6)" stroke="rgba(232,82,26,.9)" stroke-width="1.5"/>
+      <!-- Pen clip -->
+      <rect x="44" y="10" width="4" height="30" rx="2" fill="rgba(232,82,26,.5)"/>
+      <!-- Pen tip point -->
+      <circle cx="40" cy="70" r="2" fill="rgba(232,82,26,1)"/>
+      <!-- Pen band -->
+      <rect x="32" y="20" width="16" height="3" fill="rgba(232,82,26,.4)"/>
+      <!-- Writing path -->
+      <path d="M50 72 Q60 65 65 72 Q70 79 75 72" stroke="rgba(232,82,26,.5)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
   </div>
 
-  <!-- Vertical accent lines -->
-  <div class="hero-line hl1"></div>
-  <div class="hero-line hl2"></div>
-  <div class="hero-line hl3"></div>
+  <!-- 2. BEZIER CURVE / PEN TOOL PATH (top right) -->
+  <div class="h-el" style="top:15%;right:6%;">
+    <svg width="100" height="90" viewBox="0 0 100 90" fill="none">
+      <!-- Bezier path -->
+      <path d="M10 75 C10 20 90 20 90 75" stroke="rgba(232,82,26,.7)" stroke-width="2" fill="none" stroke-dasharray="5 3"/>
+      <!-- Control point handles -->
+      <line x1="10" y1="75" x2="10" y2="20" stroke="rgba(232,82,26,.4)" stroke-width="1"/>
+      <line x1="90" y1="75" x2="90" y2="20" stroke="rgba(232,82,26,.4)" stroke-width="1"/>
+      <!-- Anchor points -->
+      <rect x="5" y="70" width="10" height="10" fill="none" stroke="rgba(232,82,26,.9)" stroke-width="1.5"/>
+      <rect x="85" y="70" width="10" height="10" fill="none" stroke="rgba(232,82,26,.9)" stroke-width="1.5"/>
+      <!-- Control handles -->
+      <circle cx="10" cy="20" r="5" fill="rgba(232,82,26,.3)" stroke="rgba(232,82,26,.8)" stroke-width="1.5"/>
+      <circle cx="90" cy="20" r="5" fill="rgba(232,82,26,.3)" stroke="rgba(232,82,26,.8)" stroke-width="1.5"/>
+      <!-- Midpoint dot -->
+      <circle cx="50" cy="33" r="3" fill="rgba(232,82,26,.8)"/>
+    </svg>
+  </div>
+
+  <!-- 3. LAYERS PANEL (left middle) -->
+  <div class="h-el" style="top:42%;left:4%;">
+    <svg width="90" height="85" viewBox="0 0 90 85" fill="none">
+      <!-- Layer stack -->
+      <rect x="5" y="5" width="80" height="16" rx="3" fill="rgba(232,82,26,.2)" stroke="rgba(232,82,26,.7)" stroke-width="1.5"/>
+      <rect x="5" y="25" width="80" height="16" rx="3" fill="rgba(232,82,26,.12)" stroke="rgba(232,82,26,.5)" stroke-width="1.5"/>
+      <rect x="5" y="45" width="80" height="16" rx="3" fill="rgba(232,82,26,.07)" stroke="rgba(232,82,26,.35)" stroke-width="1.5"/>
+      <rect x="5" y="65" width="80" height="16" rx="3" fill="rgba(232,82,26,.04)" stroke="rgba(232,82,26,.25)" stroke-width="1.5"/>
+      <!-- Eye icons -->
+      <ellipse cx="20" cy="13" rx="6" ry="4" stroke="rgba(232,82,26,.8)" stroke-width="1" fill="none"/>
+      <circle cx="20" cy="13" r="2" fill="rgba(232,82,26,.8)"/>
+      <ellipse cx="20" cy="33" rx="6" ry="4" stroke="rgba(232,82,26,.6)" stroke-width="1" fill="none"/>
+      <circle cx="20" cy="33" r="2" fill="rgba(232,82,26,.6)"/>
+      <!-- Layer names hint -->
+      <rect x="32" y="10" width="40" height="6" rx="2" fill="rgba(232,82,26,.3)"/>
+      <rect x="32" y="30" width="30" height="6" rx="2" fill="rgba(232,82,26,.2)"/>
+      <rect x="32" y="50" width="35" height="6" rx="2" fill="rgba(232,82,26,.15)"/>
+    </svg>
+  </div>
+
+  <!-- 4. COLOR PALETTE (right middle) -->
+  <div class="h-el" style="top:44%;right:4%;">
+    <svg width="85" height="85" viewBox="0 0 85 85" fill="none">
+      <!-- Palette circle -->
+      <circle cx="42" cy="42" r="38" fill="rgba(232,82,26,.08)" stroke="rgba(232,82,26,.6)" stroke-width="1.5"/>
+      <!-- Thumb hole -->
+      <circle cx="30" cy="58" r="8" fill="rgba(10,10,10,.9)" stroke="rgba(232,82,26,.5)" stroke-width="1.5"/>
+      <!-- Color blobs on palette -->
+      <circle cx="42" cy="14" r="7" fill="rgba(232,82,26,.9)"/>
+      <circle cx="65" cy="25" r="7" fill="rgba(255,180,0,.7)"/>
+      <circle cx="72" cy="52" r="7" fill="rgba(100,200,80,.7)"/>
+      <circle cx="58" cy="72" r="7" fill="rgba(80,150,255,.7)"/>
+      <circle cx="28" cy="72" r="7" fill="rgba(180,80,255,.7)"/>
+      <circle cx="14" cy="48" r="7" fill="rgba(255,100,150,.7)"/>
+      <circle cx="18" cy="22" r="7" fill="rgba(255,140,0,.7)"/>
+    </svg>
+  </div>
+
+  <!-- 5. TYPOGRAPHY / LETTER A (bottom left) -->
+  <div class="h-el" style="bottom:18%;left:7%;">
+    <svg width="85" height="90" viewBox="0 0 85 90" fill="none">
+      <!-- Big A letterform -->
+      <path d="M42 8 L75 82 L58 82 L49 60 L35 60 L26 82 L10 82 Z" fill="rgba(232,82,26,.12)" stroke="rgba(232,82,26,.75)" stroke-width="2" stroke-linejoin="round"/>
+      <!-- Crossbar -->
+      <line x1="30" y1="52" x2="55" y2="52" stroke="rgba(232,82,26,.75)" stroke-width="2"/>
+      <!-- Baseline guide -->
+      <line x1="5" y1="82" x2="80" y2="82" stroke="rgba(232,82,26,.3)" stroke-width="1" stroke-dasharray="4 3"/>
+      <!-- Cap height guide -->
+      <line x1="5" y1="8" x2="80" y2="8" stroke="rgba(232,82,26,.2)" stroke-width="1" stroke-dasharray="4 3"/>
+    </svg>
+  </div>
+
+  <!-- 6. GRID / LAYOUT GRID (bottom right) -->
+  <div class="h-el" style="bottom:16%;right:6%;">
+    <svg width="88" height="88" viewBox="0 0 88 88" fill="none">
+      <!-- Outer rect -->
+      <rect x="4" y="4" width="80" height="80" rx="3" fill="none" stroke="rgba(232,82,26,.6)" stroke-width="1.5"/>
+      <!-- Grid lines vertical -->
+      <line x1="30" y1="4" x2="30" y2="84" stroke="rgba(232,82,26,.35)" stroke-width="1"/>
+      <line x1="58" y1="4" x2="58" y2="84" stroke="rgba(232,82,26,.35)" stroke-width="1"/>
+      <!-- Grid lines horizontal -->
+      <line x1="4" y1="30" x2="84" y2="30" stroke="rgba(232,82,26,.35)" stroke-width="1"/>
+      <line x1="4" y1="58" x2="84" y2="58" stroke="rgba(232,82,26,.35)" stroke-width="1"/>
+      <!-- Highlighted cell -->
+      <rect x="30" y="30" width="28" height="28" fill="rgba(232,82,26,.18)"/>
+      <!-- Corner crosshair -->
+      <circle cx="30" cy="30" r="3" fill="rgba(232,82,26,.9)"/>
+      <circle cx="58" cy="30" r="3" fill="rgba(232,82,26,.9)"/>
+      <circle cx="30" cy="58" r="3" fill="rgba(232,82,26,.9)"/>
+      <circle cx="58" cy="58" r="3" fill="rgba(232,82,26,.9)"/>
+    </svg>
+  </div>
+
+  <!-- 7. MAGIC WAND / SELECTION TOOL (top center-left) -->
+  <div class="h-el" style="top:12%;left:28%;">
+    <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+      <!-- Wand stick -->
+      <line x1="15" y1="55" x2="48" y2="22" stroke="rgba(232,82,26,.8)" stroke-width="3" stroke-linecap="round"/>
+      <!-- Star sparkles -->
+      <path d="M50 20 L52 14 L54 20 L60 22 L54 24 L52 30 L50 24 L44 22Z" fill="rgba(232,82,26,.9)"/>
+      <!-- Small sparkles -->
+      <path d="M35 12 L36 8 L37 12 L41 13 L37 14 L36 18 L35 14 L31 13Z" fill="rgba(232,82,26,.6)" transform="scale(.7) translate(15,5)"/>
+      <path d="M60 38 L61 35 L62 38 L65 39 L62 40 L61 43 L60 40 L57 39Z" fill="rgba(232,82,26,.5)"/>
+      <!-- Dashed selection circle -->
+      <circle cx="20" cy="48" r="12" fill="none" stroke="rgba(232,82,26,.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    </svg>
+  </div>
+
+  <!-- 8. RULER (right side, vertical) -->
+  <div class="h-el" style="top:20%;right:14%;">
+    <svg width="30" height="120" viewBox="0 0 30 120" fill="none">
+      <rect x="2" y="2" width="26" height="116" rx="2" fill="rgba(232,82,26,.1)" stroke="rgba(232,82,26,.6)" stroke-width="1.5"/>
+      <!-- Tick marks -->
+      <line x1="2" y1="20" x2="14" y2="20" stroke="rgba(232,82,26,.8)" stroke-width="1.5"/>
+      <line x1="2" y1="30" x2="10" y2="30" stroke="rgba(232,82,26,.5)" stroke-width="1"/>
+      <line x1="2" y1="40" x2="10" y2="40" stroke="rgba(232,82,26,.5)" stroke-width="1"/>
+      <line x1="2" y1="50" x2="10" y2="50" stroke="rgba(232,82,26,.5)" stroke-width="1"/>
+      <line x1="2" y1="60" x2="14" y2="60" stroke="rgba(232,82,26,.8)" stroke-width="1.5"/>
+      <line x1="2" y1="70" x2="10" y2="70" stroke="rgba(232,82,26,.5)" stroke-width="1"/>
+      <line x1="2" y1="80" x2="10" y2="80" stroke="rgba(232,82,26,.5)" stroke-width="1"/>
+      <line x1="2" y1="90" x2="10" y2="90" stroke="rgba(232,82,26,.5)" stroke-width="1"/>
+      <line x1="2" y1="100" x2="14" y2="100" stroke="rgba(232,82,26,.8)" stroke-width="1.5"/>
+    </svg>
+  </div>
 
   <div class="hc">
     <div class="hlbl"><span class="dot"></span><span>Available for Freelance</span></div>
