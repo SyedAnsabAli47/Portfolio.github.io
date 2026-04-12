@@ -179,7 +179,6 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
 #upload-btn { transition: opacity .2s; }
 #upload-btn:disabled { opacity: .5; cursor: not-allowed; }
 </style>
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" async></script>
 </head>
 <body>
 <div id="toast"></div>
@@ -524,99 +523,81 @@ function addTag(tag){
 }
 
 
-// CLOUDINARY UPLOAD
-var CLD_WIDGET = null;
-var CLD_READY = false;
-
-// Wait for cloudinary script to load
-function waitForCloudinary(callback) {
-  if(typeof cloudinary !== 'undefined') {
-    CLD_READY = true;
-    callback();
-  } else {
-    setTimeout(function(){ waitForCloudinary(callback); }, 300);
-  }
+// CLOUDINARY UPLOAD &mdash; direct fetch, no widget needed
+function openCloudinary() {
+  // Create hidden file input and trigger it
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/jpeg,image/png,image/webp,image/gif';
+  input.style.display = 'none';
+  document.body.appendChild(input);
+  
+  input.onchange = function() {
+    var file = input.files[0];
+    if(!file) return;
+    if(file.size > 5000000) { toast('File 5MB se bari hai!', 'err'); return; }
+    uploadToCloudinary(file);
+    document.body.removeChild(input);
+  };
+  
+  input.click();
 }
 
-function openCloudinary() {
+function uploadToCloudinary(file) {
   var btn = document.getElementById('upload-btn');
-  
-  // Check if cloudinary loaded
-  if(typeof cloudinary === 'undefined') {
-    toast('Cloudinary load nahi hua -- internet check karein', 'err');
-    return;
-  }
-  
   btn.disabled = true;
-  btn.innerHTML = '&#8679; Opening...';
+  btn.innerHTML = '&#8679; Uploading...';
   
-  try {
-    if(!CLD_WIDGET) {
-      CLD_WIDGET = cloudinary.createUploadWidget({
-        cloudName: 'db1coye8a',
-        uploadPreset: 'syedansabali_portfolio',
-        sources: ['local', 'url', 'camera'],
-        multiple: false,
-        maxFileSize: 5000000,
-        clientAllowedFormats: ['jpg','jpeg','png','webp','gif'],
-        showAdvancedOptions: false,
-        cropping: false,
-        showSkipCropButton: false,
-        language: 'en',
-        text: {
-          'en': {
-            'or': 'Ya URL se:',
-            'menu': {
-              'files': 'Computer se Upload',
-              'url': 'URL se',
-              'camera': 'Camera'
-            }
-          }
-        },
-        styles: {
-          palette: {
-            window: '#1a1a1a',
-            windowBorder: '#252525',
-            tabIcon: '#e8521a',
-            menuIcons: '#6e6a65',
-            textDark: '#f2ede6',
-            textLight: '#f2ede6',
-            link: '#e8521a',
-            action: '#e8521a',
-            inactiveTabIcon: '#6e6a65',
-            error: '#ef4444',
-            inProgress: '#e8521a',
-            complete: '#22c55e',
-            sourceBg: '#131313'
-          }
-        }
-      }, function(error, result) {
-        if(error) {
-          console.error('Cloudinary error:', error);
-          toast('Upload error: ' + (error.message || 'Try again'), 'err');
-          resetUploadBtn();
-          return;
-        }
-        if(result && result.event === 'success') {
-          var url = result.info.secure_url;
-          document.getElementById('ni').value = url;
-          prevI(url);
-          toast('Image upload ho gaya!', 'ok');
-          resetUploadBtn();
-        }
-        if(result && result.event === 'close') {
-          resetUploadBtn();
-        }
-      });
+  // Show progress bar
+  var prog = document.getElementById('upload-progress');
+  var bar = document.getElementById('upload-bar');
+  var status = document.getElementById('upload-status');
+  prog.style.display = 'block';
+  bar.style.width = '0%';
+  status.textContent = 'Uploading...';
+  
+  var formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', 'syedansabali_portfolio');
+  formData.append('cloud_name', 'db1coye8a');
+  
+  var xhr = new XMLHttpRequest();
+  
+  xhr.upload.onprogress = function(e) {
+    if(e.lengthComputable) {
+      var pct = Math.round((e.loaded / e.total) * 100);
+      bar.style.width = pct + '%';
+      status.textContent = 'Uploading... ' + pct + '%';
     }
-    CLD_WIDGET.open();
+  };
+  
+  xhr.onload = function() {
+    if(xhr.status === 200) {
+      var res = JSON.parse(xhr.responseText);
+      var url = res.secure_url;
+      document.getElementById('ni').value = url;
+      prevI(url);
+      bar.style.width = '100%';
+      status.textContent = 'Upload complete!';
+      status.style.color = 'var(--green)';
+      toast('Image upload ho gaya!', 'ok');
+      setTimeout(function() { prog.style.display = 'none'; status.style.color = ''; }, 2000);
+    } else {
+      var err = JSON.parse(xhr.responseText);
+      toast('Upload failed: ' + (err.error && err.error.message || 'Try again'), 'err');
+      prog.style.display = 'none';
+    }
     resetUploadBtn();
-  } catch(e) {
-    console.error('Widget error:', e);
-    toast('Widget error: ' + e.message, 'err');
+  };
+  
+  xhr.onerror = function() {
+    toast('Network error! Internet check karein.', 'err');
+    prog.style.display = 'none';
     resetUploadBtn();
-    CLD_WIDGET = null;
-  }
+  };
+  
+  xhr.open('POST', 'https://api.cloudinary.com/v1_1/db1coye8a/image/upload');
+  xhr.send(formData);
 }
 
 function resetUploadBtn() {
