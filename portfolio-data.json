@@ -3,7 +3,7 @@
     "name": "Syed Ansab Ali",
     "title": "Graphics Designer",
     "tagline": "Crafting visual identities that speak louder than words.",
-    "bio": "I am a passionate Graphics Designer from Karachi, Pakistan — specializing in brand identity, logo design, social media creatives, and print design. I turn ideas into visuals that leave a lasting impression.",
+    "bio": "I am a passionate Graphics Designer from Karachi, Pakistan â specializing in brand identity, logo design, social media creatives, and print design. I turn ideas into visuals that leave a lasting impression.",
     "email": "syedansab98@gmail.com",
     "phone": "+92 330 3966165",
     "location": "Karachi, Pakistan",
@@ -39,7 +39,7 @@
     {
       "icon": "&#9733;",
       "title": "Packaging Design",
-      "desc": "Product packaging jo shelf par alag dikhe — boxes, labels, pouches aur wrappers."
+      "desc": "Product packaging jo shelf par alag dikhe â boxes, labels, pouches aur wrappers."
     },
     {
       "icon": "&#9670;",
@@ -49,7 +49,7 @@
     {
       "icon": "&#8857;",
       "title": "Motion Graphics",
-      "desc": "Animated logos, social media reels aur promotional video graphics — ab demand mein sabse zyada."
+      "desc": "Animated logos, social media reels aur promotional video graphics â ab demand mein sabse zyada."
     },
     {
       "icon": "&#9826;",
@@ -103,6 +103,18 @@
       "year": "2025",
       "skill": "Social Media Design",
       "tags": []
+    },
+    {
+      "id": 1775955118226,
+      "title": "High-Converting YouTube Thumbnail Redesign (Before & After)",
+      "category": "Social Media",
+      "image": "https://www.dropbox.com/scl/fi/n4lexdui4yv5hoq5hv73h/Untitled-1.png?rlkey=hrtduhay3mr4b7p5yrlzj6ern&st=7dc2uxla&dl=0",
+      "description": "Redesigned a YouTube thumbnail to improve visual impact, clarity, and click-through performance.",
+      "year": "2025",
+      "skill": "Social Media Design",
+      "tags": [
+        "YouTubeThumbnail #ThumbnailDesign #GraphicDesign #BeforeAndAfter #CTR #ContentCreation #YouTubeGrowth #VisualDesign #SocialMediaDesign #DesignPortfolio #CreativeDesign #DigitalDesign #Photoshop #Branding #MarketingDesign"
+      ]
     }
   ],
   "testimonials": [
