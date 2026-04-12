@@ -297,9 +297,10 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
             <div class="fg ff">
               <label>Project Image *</label>
               <div style="display:flex;gap:9px;align-items:flex-start;flex-wrap:wrap;">
-                <button type="button" class="btn" id="upload-btn" onclick="openCloudinary()" style="flex-shrink:0;min-width:140px;">
+                <button type="button" class="btn" id="upload-btn" onclick="document.getElementById('img-file-input').click()" style="flex-shrink:0;min-width:140px;">
                   &#8679; Upload Image
                 </button>
+                <input type="file" id="img-file-input" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none;" onchange="handleFileSelect(this)">
                 <div style="flex:1;min-width:200px;">
                   <input type="url" id="ni" placeholder="Ya URL paste karein..." oninput="prevI(this.value)" style="width:100%;">
                 </div>
@@ -524,24 +525,14 @@ function addTag(tag){
 
 
 // CLOUDINARY UPLOAD &mdash; direct fetch, no widget needed
-function openCloudinary() {
-  // Create hidden file input and trigger it
-  var input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'image/jpeg,image/png,image/webp,image/gif';
-  input.style.display = 'none';
-  document.body.appendChild(input);
-  
-  input.onchange = function() {
-    var file = input.files[0];
-    if(!file) return;
-    if(file.size > 5000000) { toast('File 5MB se bari hai!', 'err'); return; }
-    uploadToCloudinary(file);
-    document.body.removeChild(input);
-  };
-  
-  input.click();
+function handleFileSelect(input) {
+  var file = input.files[0];
+  if(!file) return;
+  if(file.size > 5000000) { toast('File 5MB se bari hai!', 'err'); input.value=''; return; }
+  uploadToCloudinary(file);
+  input.value = ''; // Reset so same file can be selected again
 }
+
 
 function uploadToCloudinary(file) {
   var btn = document.getElementById('upload-btn');
