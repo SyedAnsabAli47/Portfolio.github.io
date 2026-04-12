@@ -3,7 +3,7 @@
     "name": "Syed Ansab Ali",
     "title": "Graphics Designer",
     "tagline": "Crafting visual identities that speak louder than words.",
-    "bio": "I am a passionate Graphics Designer from Karachi, Pakistan \u2014 specializing in brand identity, logo design, social media creatives, and print design. I turn ideas into visuals that leave a lasting impression.",
+    "bio": "I am a passionate Graphics Designer from Karachi, Pakistan — specializing in brand identity, logo design, social media creatives, and print design. I turn ideas into visuals that leave a lasting impression.",
     "email": "syedansab98@gmail.com",
     "phone": "+92 330 3966165",
     "location": "Karachi, Pakistan",
@@ -39,7 +39,7 @@
     {
       "icon": "&#9733;",
       "title": "Packaging Design",
-      "desc": "Product packaging jo shelf par alag dikhe \u2014 boxes, labels, pouches aur wrappers."
+      "desc": "Product packaging jo shelf par alag dikhe — boxes, labels, pouches aur wrappers."
     },
     {
       "icon": "&#9670;",
@@ -49,7 +49,7 @@
     {
       "icon": "&#8857;",
       "title": "Motion Graphics",
-      "desc": "Animated logos, social media reels aur promotional video graphics \u2014 ab demand mein sabse zyada."
+      "desc": "Animated logos, social media reels aur promotional video graphics — ab demand mein sabse zyada."
     },
     {
       "icon": "&#9826;",
@@ -93,6 +93,23 @@
       "image": "https://www.dropbox.com/scl/fi/k7kd08rag0cq1f5lnnxfx/coaching-centre.png?rlkey=vuvuoe8279gt90su533n77qmo&st=8u5wr34s&dl=1",
       "description": "Complete branding for coaching centre",
       "year": "2024"
+    },
+    {
+      "id": 1775953784736,
+      "title": "thumbnail BEFORE and AFTER edits",
+      "category": "Social Media",
+      "image": "https://collection.cloudinary.com/db1coye8a/b965402d83b1ac5d36bd39ce2e641961",
+      "description": "YouTube Thumbnail Redesign  Redesigned a low-performing thumbnail to enhance clarity, visual hierarchy, and click-through potential. The updated version leverages bold typography, high-contrast visuals, and expressive imagery to create a stronger hook and immediate viewer engagement.  Strategic use of composition, product focus, and attention-directing elements results in a cleaner, more impactful, and performance-driven design.  Focus: CTR optimization, visual storytelling, and high-conversion thumbnail design.",
+      "year": "2025",
+      "skill": "Social Media Design",
+      "tags": [
+        "thumbnail",
+        "redesign",
+        "beforeandafter",
+        "photoshop",
+        "socialmedia",
+        "yotube"
+      ]
     }
   ],
   "testimonials": [
