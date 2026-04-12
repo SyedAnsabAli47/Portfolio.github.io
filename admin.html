@@ -179,7 +179,7 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
 #upload-btn { transition: opacity .2s; }
 #upload-btn:disabled { opacity: .5; cursor: not-allowed; }
 </style>
-<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" async></script>
 </head>
 <body>
 <div id="toast"></div>
@@ -298,7 +298,7 @@ main{margin-left:225px;flex:1;min-height:100vh;overflow-y:auto;background:var(--
             <div class="fg ff">
               <label>Project Image *</label>
               <div style="display:flex;gap:9px;align-items:flex-start;flex-wrap:wrap;">
-                <button type="button" class="btn" id="upload-btn" onclick="openCloudinary()" style="flex-shrink:0;">
+                <button type="button" class="btn" id="upload-btn" onclick="openCloudinary()" style="flex-shrink:0;min-width:140px;">
                   &#8679; Upload Image
                 </button>
                 <div style="flex:1;min-width:200px;">
@@ -526,63 +526,102 @@ function addTag(tag){
 
 // CLOUDINARY UPLOAD
 var CLD_WIDGET = null;
-function openCloudinary(){
-  var btn = document.getElementById('upload-btn');
-  btn.disabled = true;
-  btn.textContent = 'Opening...';
-  
-  if(!CLD_WIDGET){
-    CLD_WIDGET = cloudinary.createUploadWidget({
-      cloudName: 'db1coye8a',
-      uploadPreset: 'syedansabali_portfolio',
-      sources: ['local', 'url', 'camera'],
-      multiple: false,
-      maxFileSize: 5000000,
-      clientAllowedFormats: ['jpg','jpeg','png','webp','gif'],
-      styles: {
-        palette: {
-          window: '#1a1a1a',
-          windowBorder: '#252525',
-          tabIcon: '#e8521a',
-          menuIcons: '#6e6a65',
-          textDark: '#f2ede6',
-          textLight: '#f2ede6',
-          link: '#e8521a',
-          action: '#e8521a',
-          inactiveTabIcon: '#6e6a65',
-          error: '#ef4444',
-          inProgress: '#e8521a',
-          complete: '#22c55e',
-          sourceBg: '#131313'
-        },
-        fonts: { default: null, "'DM Sans', sans-serif": { url: 'https://fonts.googleapis.com/css2?family=DM+Sans', active: true } }
-      }
-    }, function(error, result){
-      if(error){
-        toast('Upload error! Try again.', 'err');
-        resetUploadBtn();
-        return;
-      }
-      if(result.event === 'success'){
-        var url = result.info.secure_url;
-        document.getElementById('ni').value = url;
-        prevI(url);
-        toast('Image upload ho gaya!', 'ok');
-        resetUploadBtn();
-      }
-      if(result.event === 'close'){
-        resetUploadBtn();
-      }
-    });
+var CLD_READY = false;
+
+// Wait for cloudinary script to load
+function waitForCloudinary(callback) {
+  if(typeof cloudinary !== 'undefined') {
+    CLD_READY = true;
+    callback();
+  } else {
+    setTimeout(function(){ waitForCloudinary(callback); }, 300);
   }
-  
-  CLD_WIDGET.open();
-  resetUploadBtn();
 }
 
-function resetUploadBtn(){
+function openCloudinary() {
   var btn = document.getElementById('upload-btn');
-  if(btn){ btn.disabled = false; btn.innerHTML = '&#8679; Upload Image'; }
+  
+  // Check if cloudinary loaded
+  if(typeof cloudinary === 'undefined') {
+    toast('Cloudinary load nahi hua -- internet check karein', 'err');
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.innerHTML = '&#8679; Opening...';
+  
+  try {
+    if(!CLD_WIDGET) {
+      CLD_WIDGET = cloudinary.createUploadWidget({
+        cloudName: 'db1coye8a',
+        uploadPreset: 'syedansabali_portfolio',
+        sources: ['local', 'url', 'camera'],
+        multiple: false,
+        maxFileSize: 5000000,
+        clientAllowedFormats: ['jpg','jpeg','png','webp','gif'],
+        showAdvancedOptions: false,
+        cropping: false,
+        showSkipCropButton: false,
+        language: 'en',
+        text: {
+          'en': {
+            'or': 'Ya URL se:',
+            'menu': {
+              'files': 'Computer se Upload',
+              'url': 'URL se',
+              'camera': 'Camera'
+            }
+          }
+        },
+        styles: {
+          palette: {
+            window: '#1a1a1a',
+            windowBorder: '#252525',
+            tabIcon: '#e8521a',
+            menuIcons: '#6e6a65',
+            textDark: '#f2ede6',
+            textLight: '#f2ede6',
+            link: '#e8521a',
+            action: '#e8521a',
+            inactiveTabIcon: '#6e6a65',
+            error: '#ef4444',
+            inProgress: '#e8521a',
+            complete: '#22c55e',
+            sourceBg: '#131313'
+          }
+        }
+      }, function(error, result) {
+        if(error) {
+          console.error('Cloudinary error:', error);
+          toast('Upload error: ' + (error.message || 'Try again'), 'err');
+          resetUploadBtn();
+          return;
+        }
+        if(result && result.event === 'success') {
+          var url = result.info.secure_url;
+          document.getElementById('ni').value = url;
+          prevI(url);
+          toast('Image upload ho gaya!', 'ok');
+          resetUploadBtn();
+        }
+        if(result && result.event === 'close') {
+          resetUploadBtn();
+        }
+      });
+    }
+    CLD_WIDGET.open();
+    resetUploadBtn();
+  } catch(e) {
+    console.error('Widget error:', e);
+    toast('Widget error: ' + e.message, 'err');
+    resetUploadBtn();
+    CLD_WIDGET = null;
+  }
+}
+
+function resetUploadBtn() {
+  var btn = document.getElementById('upload-btn');
+  if(btn) { btn.disabled = false; btn.innerHTML = '&#8679; Upload Image'; }
 }
 
 loadData();
